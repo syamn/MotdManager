@@ -73,7 +73,7 @@ public class ConfigurationManager {
 		plugin.reloadConfig();
 
 		// 先にバージョンチェック
-		double version = plugin.getConfig().getDouble("Version", 0.1D);
+		double version = plugin.getConfig().getDouble("DontTouchThisConfig", 0.1D);
 		checkver(version);
 
 		/* Basic Configs */
