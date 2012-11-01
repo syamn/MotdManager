@@ -1,6 +1,29 @@
-*.class
+# Eclipse stuff
+.classpath
+.project
+.settings
 
-# Package Files #
-*.jar
-*.war
-*.ear
+# netbeans
+/nbproject
+
+# maven
+/build.xml
+/target
+
+# vim
+.*.sw[a-p]
+
+# Mac filesystem dust
+.DS_Store
+
+# intellij
+*.iml
+*.ipr
+*.iws
+.idea/
+
+# others
+*.dat
+*.tmp
+/*.gitignore
+.checkstyle
