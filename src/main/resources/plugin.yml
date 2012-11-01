@@ -1,0 +1,13 @@
+##  Plugin Information  ##
+name: MotdManager
+version: version-number-unknown
+main: syam.motdManager.MotdManager
+description: MotdManager Plugin
+website: http://sakura-server.net/
+##  Original Author     ##
+author: syam
+commands:
+    motdmanager:
+      usage: /motdmanager - to see the help
+      aliases: [motd, mm]
+      description: To see the MotdManager help.

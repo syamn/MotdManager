@@ -1,0 +1,15 @@
+# MotdManager Configuration file!
+# @author syamn <admin@sakura-server.net>
+# github: https://github.com/syamn/MotdManager
+
+#==================#
+#   Basic Config   #
+#==================#
+Enable: false
+Motd: '&cThis is default MOTD!'
+
+#==================#
+#   DO NOT TOUCH   #
+#==================#
+# Do not touch this option! It is a check if you are running the recent configuration version
+Version: 0.1
