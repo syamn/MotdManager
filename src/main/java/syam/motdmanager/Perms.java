@@ -12,6 +12,11 @@ import org.bukkit.permissions.Permissible;
  */
 public enum Perms {
 	/* 権限ノード */
+	// Motd Commands
+	ADD ("add"),
+	REMOVE ("remove"),
+	LIST ("list"),
+
 	// Admin Commands
 	RELOAD ("reload"),
 

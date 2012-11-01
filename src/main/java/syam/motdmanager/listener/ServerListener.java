@@ -1,0 +1,48 @@
+/**
+ * MotdManager - Package: syam.motdmanager.listener
+ * Created: 2012/11/02 7:31:54
+ */
+package syam.motdmanager.listener;
+
+import java.util.List;
+import java.util.Random;
+import java.util.logging.Logger;
+
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
+import org.bukkit.event.Listener;
+import org.bukkit.event.server.ServerListPingEvent;
+
+import syam.motdmanager.MotdManager;
+import syam.motdmanager.util.Actions;
+
+/**
+ * ServerListener (ServerListener.java)
+ * @author syam(syamn)
+ */
+public class ServerListener implements Listener{
+	private static final Logger log = MotdManager.log;
+	private static final String logPrefix = MotdManager.logPrefix;
+	private static final String msgPrefix = MotdManager.msgPrefix;
+
+	private final MotdManager plugin;
+	private final Random random;
+
+	public ServerListener(final MotdManager plugin){
+		this.plugin = plugin;
+		this.random = new Random();
+	}
+
+	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
+	public void onServerListPing(final ServerListPingEvent event){
+		final String motd = chooseMsg();
+		if (motd == null) return;
+		event.setMotd(Actions.coloring(motd));
+	}
+
+	private String chooseMsg(){
+		final List<String> motds = plugin.getConfigs().getMotdList();
+		if (motds.size() == 0) return null;
+		return motds.get(random.nextInt(motds.size()));
+	}
+}

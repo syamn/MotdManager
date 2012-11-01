@@ -16,6 +16,8 @@ import java.io.OutputStreamWriter;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.channels.FileChannel;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Logger;
 
 import org.bukkit.configuration.file.FileConfiguration;
@@ -36,12 +38,12 @@ public class ConfigurationManager {
 	private static File pluginDir = new File("plugins", "MotdManager");
 
 	// デフォルトの設定定数
-	private final String defMotd = "&cThis is default motd!";
+	@SuppressWarnings("serial")
+	private final List<String> defMotdList = new ArrayList<String>() {{add("&cThis is default MOTD!");}};
 
 	// 設定項目
 	/* Basic Configs */
-	private boolean enable = false;
-	private String motd = defMotd;
+	private List<String> motdList = defMotdList;
 
 	/**
 	 * コンストラクタ
@@ -64,7 +66,7 @@ public class ConfigurationManager {
 		File file = new File(pluginDir, "config.yml");
 		// 無ければデフォルトコピー
 		if (!file.exists()){
-			extractResource("/config.yml", pluginDir, false, true);
+			extractResource(System.getProperty("file.separator") + "config.yml", pluginDir, false, true);
 			log.info(logPrefix+ "config.yml is not found! Created default config.yml!");
 		}
 
@@ -75,26 +77,46 @@ public class ConfigurationManager {
 		checkver(version);
 
 		/* Basic Configs */
-		enable = plugin.getConfig().getBoolean("Enable", false);
-		motd = plugin.getConfig().getString("Motd", defMotd);
+		if (plugin.getConfig().get("MotdList") != null){
+			motdList = plugin.getConfig().getStringList("MotdList");
+		}else{
+			motdList = defMotdList;
+		}
+
 	}
 
-	// 設定 getter ここから
+	// 設定 getter/setter ここから
 	/* Basic Configs */
-	public boolean getEnable(){
-		return this.enable;
+	public List<String> getMotdList(){
+		return this.motdList;
 	}
-	public String getMotd(){
-		return this.motd;
+	public List<String> addMotdList(final String motd){
+		this.motdList.add(motd);
+		return this.getMotdList();
 	}
-	// 設定 getter ここまで
+	public String removeMotdList(final int index){
+		if (index < 0 || index >= motdList.size()){
+			return null;
+		}
+		return this.motdList.remove(index);
+	}
+
+	// 設定 getter/setter ここまで
 
 	/**
-	 * 設定ファイルに設定を書き込む (コメントが消えるため使わない)
+	 * 設定ファイルに設定を書き込む
 	 * @throws Exception
 	 */
-	public void save() throws Exception{
-		plugin.saveConfig();
+	public boolean save(){
+		plugin.getConfig().set("MotdList", getMotdList());
+		try {
+			plugin.getConfig().save(new File(plugin.getDataFolder() + System.getProperty("file.separator") + "config.yml"));
+		} catch (IOException ex) {
+			log.warning(logPrefix+ "Couldn't write config file!");
+			ex.printStackTrace();
+			return false;
+		}
+		return true;
 	}
 
 	/**

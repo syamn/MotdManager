@@ -182,7 +182,7 @@ public class Actions {
 	 */
 	public static String coloring(String string){
 		if (string == null) return null;
-		return string.replaceAll("&([0-9a-fA-Fk-oK-Or])", "\u00A7$1");
+		return string.replaceAll("&([0-9a-fA-Fk-oK-OrR])", "\u00A7$1");
 	}
 
 	/****************************************/

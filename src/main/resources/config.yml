@@ -5,8 +5,8 @@
 #==================#
 #   Basic Config   #
 #==================#
-Enable: false
-Motd: '&cThis is default MOTD!'
+MotdList:
+- '&cThis is default MOTD!'
 
 #==================#
 #   DO NOT TOUCH   #

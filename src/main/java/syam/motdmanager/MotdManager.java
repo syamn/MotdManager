@@ -15,9 +15,13 @@ import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import syam.motdmanager.command.AddCommand;
 import syam.motdmanager.command.BaseCommand;
 import syam.motdmanager.command.HelpCommand;
+import syam.motdmanager.command.ListCommand;
 import syam.motdmanager.command.ReloadCommand;
+import syam.motdmanager.command.RemoveCommand;
+import syam.motdmanager.listener.ServerListener;
 import syam.motdmanager.util.Metrics;
 
 /**
@@ -27,11 +31,11 @@ import syam.motdmanager.util.Metrics;
 public class MotdManager extends JavaPlugin{
 	// ** Logger **
 	public final static Logger log = Logger.getLogger("Minecraft");
-	public final static String logPrefix = "[SakuraGroup] ";
-	public final static String msgPrefix = "&c[SakuraGroup] &f";
+	public final static String logPrefix = "[MotdManager] ";
+	public final static String msgPrefix = "&6[MotdManager] &f";
 
 	// ** Listener **
-	//SignListener signListener = new SignListener(this);
+	ServerListener serverListener = new ServerListener(this);
 
 	// ** Commands **
 	private List<BaseCommand> commands = new ArrayList<BaseCommand>();
@@ -65,7 +69,7 @@ public class MotdManager extends JavaPlugin{
 		}
 
 		// Regist Listeners
-		//pm.registerEvents(signListener, this);
+		pm.registerEvents(serverListener, this);
 
 		// コマンド登録
 		registerCommands();
@@ -93,6 +97,11 @@ public class MotdManager extends JavaPlugin{
 	private void registerCommands(){
 		// Intro Commands
 		commands.add(new HelpCommand());
+
+		// Motd Commands
+		commands.add(new AddCommand());
+		commands.add(new RemoveCommand());
+		commands.add(new ListCommand());
 
 		// Admin Commands
 		commands.add(new ReloadCommand());

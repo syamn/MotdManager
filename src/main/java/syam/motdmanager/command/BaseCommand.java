@@ -11,6 +11,7 @@ import java.util.logging.Logger;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import syam.motdmanager.ConfigurationManager;
 import syam.motdmanager.MotdManager;
 import syam.motdmanager.exception.CommandException;
 import syam.motdmanager.util.Actions;
@@ -34,9 +35,12 @@ public abstract class BaseCommand {
 	public Player player;
 	public String command;
 	public MotdManager plugin;
+	protected ConfigurationManager config;
 
 	public boolean run(final MotdManager plugin, CommandSender sender, String[] preArgs, String cmd) {
 		this.plugin = plugin;
+		this.config = plugin.getConfigs();
+
 		this.sender = sender;
 		this.command = cmd;
 
