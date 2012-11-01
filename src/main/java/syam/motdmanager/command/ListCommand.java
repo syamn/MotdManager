@@ -9,7 +9,6 @@ import java.util.List;
 import syam.motdmanager.Perms;
 import syam.motdmanager.exception.CommandException;
 import syam.motdmanager.util.Actions;
-import syam.motdmanager.util.Util;
 
 /**
  * ListCommand (ListCommand.java)
@@ -27,7 +26,7 @@ public class ListCommand extends BaseCommand{
 	public void execute() throws CommandException {
 		final List<String> motds = config.getMotdList();
 		if (motds.size() == 0){
-			throw new CommandException("&cMotd list is empty!");
+			throw new CommandException("&cMotd list is empty! Add motd to /" + this.command + " add <motd>");
 		}
 
 		Actions.message(sender, "&e-- MotdManager : MotdList (" + motds.size() + ") --");

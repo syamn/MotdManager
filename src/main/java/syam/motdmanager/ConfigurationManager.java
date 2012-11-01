@@ -58,7 +58,7 @@ public class ConfigurationManager {
 	 * 設定をファイルから読み込む
 	 * @param initialLoad 初回ロードかどうか
 	 */
-	public void loadConfig(boolean initialLoad) throws Exception{
+	public void loadConfig(final boolean initialLoad) throws Exception{
 		// ディレクトリ作成
 		createDirs();
 
@@ -130,7 +130,7 @@ public class ConfigurationManager {
 	 * 存在しないディレクトリを作成する
 	 * @param dir File 作成するディレクトリ
 	 */
-	private static void createDir(File dir) {
+	private static void createDir(final File dir) {
 		// 既に存在すれば作らない
 		if (dir.isDirectory()){
 			return;

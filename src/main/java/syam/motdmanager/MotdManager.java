@@ -133,7 +133,7 @@ public class MotdManager extends JavaPlugin{
 
 			outer:
 				for (BaseCommand command : commands.toArray(new BaseCommand[0])){
-					String[] cmds = command.name.split(" ");
+					String[] cmds = command.getName().split(" ");
 					for (int i = 0; i < cmds.length; i++){
 						if (i >= args.length || !cmds[i].equalsIgnoreCase(args[i])){
 							continue outer;

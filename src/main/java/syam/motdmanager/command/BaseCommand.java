@@ -26,18 +26,18 @@ public abstract class BaseCommand {
 	protected static final String logPrefix = MotdManager.logPrefix;
 	protected static final String msgPrefix = MotdManager.msgPrefix;
 	/* コマンド関係 */
-	public CommandSender sender;
-	public List<String> args = new ArrayList<String>();
-	public String name;
-	public int argLength = 0;
-	public String usage;
-	public boolean bePlayer = true;
-	public Player player;
-	public String command;
-	public MotdManager plugin;
+	protected CommandSender sender;
+	protected List<String> args = new ArrayList<String>();
+	protected String name;
+	protected int argLength = 0;
+	protected String usage;
+	protected boolean bePlayer = true;
+	protected Player player;
+	protected String command;
+	protected MotdManager plugin;
 	protected ConfigurationManager config;
 
-	public boolean run(final MotdManager plugin, CommandSender sender, String[] preArgs, String cmd) {
+	public boolean run(final MotdManager plugin, final CommandSender sender, final String[] preArgs, final String cmd) {
 		this.plugin = plugin;
 		this.config = plugin.getConfigs();
 
@@ -108,5 +108,9 @@ public abstract class BaseCommand {
 	 */
 	public void sendUsage(){
 		Actions.message(sender, "&c/"+this.command+" "+name+" "+usage);
+	}
+
+	public String getName(){
+		return this.name;
 	}
 }
