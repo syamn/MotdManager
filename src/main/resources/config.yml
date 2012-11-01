@@ -12,4 +12,4 @@ MotdList:
 #   DO NOT TOUCH   #
 #==================#
 # Do not touch this option! It is a check if you are running the recent configuration version
-DontTouchThisConfig: 0.1
+DontTouchThisConfig: 1.0
