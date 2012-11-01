@@ -2,7 +2,7 @@
 name: MotdManager
 version: version-number-unknown
 main: syam.motdmanager.MotdManager
-description: MotdManager Plugin
+description: Changes server MOTD!
 website: http://sakura-server.net/
 ##  Original Author     ##
 author: syam
@@ -11,3 +11,16 @@ commands:
       usage: /motdmanager - to see the help
       aliases: [motd, mm]
       description: To see the MotdManager help.
+permissions:
+    motdmanager.add:
+        default: op
+        description: Allow use add command
+    motdmanager.remove:
+        default: op
+        description: Allow use remove command
+    motdmanager.list:
+        default: op
+        description: Allow use list command
+    motdmanager.reload:
+        default: op
+        description: Allow use reload command
