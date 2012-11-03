@@ -22,6 +22,8 @@ import java.util.logging.Logger;
 
 import org.bukkit.configuration.file.FileConfiguration;
 
+import syam.motdmanager.util.Util;
+
 /**
  * ConfigurationManager (ConfigurationManager.java)
  * @author syam(syamn)
@@ -44,6 +46,10 @@ public class ConfigurationManager {
 	// 設定項目
 	/* Basic Configs */
 	private List<String> motdList = defMotdList;
+	private boolean useMaxPlayers = false;
+	private int fakeMaxPlayers = 20;
+
+	private boolean debug = false;
 
 	/**
 	 * コンストラクタ
@@ -82,6 +88,16 @@ public class ConfigurationManager {
 		}else{
 			motdList = defMotdList;
 		}
+		String fakeMaxPlayersStr = plugin.getConfig().getString("FakeMaxPlayer", "disable");
+		if (Util.isInteger(fakeMaxPlayersStr)){
+			fakeMaxPlayers = Integer.parseInt(fakeMaxPlayersStr);
+			useMaxPlayers = true;
+		}else{
+			useMaxPlayers = false;
+		}
+
+		/* Debug Configs */
+		debug = plugin.getConfig().getBoolean("Debug", false);
 
 	}
 
@@ -101,6 +117,24 @@ public class ConfigurationManager {
 		return this.motdList.remove(index);
 	}
 
+	public int getFakeMaxPlayers(){
+		return this.fakeMaxPlayers;
+	}
+	public void setFakeMaxPlayers(final int count){
+		this.fakeMaxPlayers = count;
+	}
+
+	public boolean getUseFakeMaxPlayers(){
+		return useMaxPlayers;
+	}
+	public void setUseFakeMaxPlayers(final boolean use){
+		this.useMaxPlayers = use;
+	}
+
+	/* Debug Configs */
+	public boolean isDebug(){
+		return this.debug;
+	}
 	// 設定 getter/setter ここまで
 
 	/**
@@ -109,6 +143,7 @@ public class ConfigurationManager {
 	 */
 	public boolean save(){
 		plugin.getConfig().set("MotdList", getMotdList());
+		plugin.getConfig().set("FakeMaxPlayer", (useMaxPlayers) ? fakeMaxPlayers : "disable");
 		try {
 			plugin.getConfig().save(new File(plugin.getDataFolder() + System.getProperty("file.separator") + "config.yml"));
 		} catch (IOException ex) {

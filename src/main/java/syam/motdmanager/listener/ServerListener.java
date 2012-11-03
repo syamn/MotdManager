@@ -13,6 +13,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.server.ServerListPingEvent;
 
+import syam.motdmanager.ConfigurationManager;
 import syam.motdmanager.MotdManager;
 import syam.motdmanager.util.Actions;
 
@@ -35,9 +36,19 @@ public class ServerListener implements Listener{
 
 	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
 	public void onServerListPing(final ServerListPingEvent event){
-		final String motd = chooseMsg();
-		if (motd == null) return;
-		event.setMotd(Actions.coloring(motd));
+		String debugmsg = "Get ping from " + event.getAddress().getHostAddress() + "!";
+
+		final String motd = Actions.coloring(chooseMsg());
+		if (motd != null) {
+			event.setMotd(motd);
+			debugmsg += " Motd: '" + motd + "'";
+		}
+		if (plugin.getConfigs().getUseFakeMaxPlayers()){
+			event.setMaxPlayers(plugin.getConfigs().getFakeMaxPlayers());
+			debugmsg += " FakeMaxPlayers: '" + plugin.getConfigs().getFakeMaxPlayers() + "'";
+		}
+
+		plugin.debug(debugmsg);
 	}
 
 	private String chooseMsg(){

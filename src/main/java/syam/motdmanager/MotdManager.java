@@ -19,6 +19,7 @@ import syam.motdmanager.command.AddCommand;
 import syam.motdmanager.command.BaseCommand;
 import syam.motdmanager.command.HelpCommand;
 import syam.motdmanager.command.ListCommand;
+import syam.motdmanager.command.MaxplayerCommand;
 import syam.motdmanager.command.ReloadCommand;
 import syam.motdmanager.command.RemoveCommand;
 import syam.motdmanager.listener.ServerListener;
@@ -103,6 +104,9 @@ public class MotdManager extends JavaPlugin{
 		commands.add(new RemoveCommand());
 		commands.add(new ListCommand());
 
+		// Other Commands
+		commands.add(new MaxplayerCommand());
+
 		// Admin Commands
 		commands.add(new ReloadCommand());
 	}
@@ -147,6 +151,12 @@ public class MotdManager extends JavaPlugin{
 			return true;
 		}
 		return false;
+	}
+
+	public void debug(final String msg){
+		if (config.isDebug()){
+			log.info(logPrefix+ "[DEBUG]" + msg);
+		}
 	}
 
 	/* getter */

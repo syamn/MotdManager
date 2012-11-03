@@ -17,6 +17,9 @@ public enum Perms {
 	REMOVE ("remove"),
 	LIST ("list"),
 
+	// Other Commands
+	MAXPLAYER ("maxplayer"),
+
 	// Admin Commands
 	RELOAD ("reload"),
 

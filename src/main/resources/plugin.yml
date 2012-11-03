@@ -21,6 +21,9 @@ permissions:
     motdmanager.list:
         default: op
         description: Allow use list command
+    motdmanager.maxplayer:
+        default: op
+        description: Allow use maxplayer command
     motdmanager.reload:
         default: op
         description: Allow use reload command

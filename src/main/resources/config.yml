@@ -5,8 +5,17 @@
 #==================#
 #   Basic Config   #
 #==================#
+# sending MOTD list
 MotdList:
 - '&cThis is default MOTD!'
+
+# if use show fake max players count feature, change this to numeric
+FakeMaxPlayer: disable
+
+#==================#
+#   Debug Config   #
+#==================#
+Debug: false
 
 #==================#
 #   DO NOT TOUCH   #
