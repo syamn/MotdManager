@@ -47,7 +47,7 @@ public class MaxplayerCommand extends BaseCommand{
 			throw new CommandException("&cFailed to save configuration file!");
 		}
 		Actions.message(sender, "&aUsing fake players count: &6" + count);
-		if (count <= 0 || count >= 1000){
+		if (count < 0 || count >= 1000){
 			Actions.message(sender, "&4WARN:&c You specified a number of deprecated range!");
 		}
 	}
