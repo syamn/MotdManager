@@ -8,7 +8,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
+import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.PluginDescriptionFile;
@@ -44,6 +47,9 @@ public class MotdManager extends JavaPlugin{
 	// ** Private Classes **
 	private ConfigurationManager config;
 
+	// ** Replaces **
+	public String mcVersion = "";
+
 	// ** Instance **
 	private static MotdManager instance;
 
@@ -53,6 +59,7 @@ public class MotdManager extends JavaPlugin{
 	@Override
 	public void onEnable(){
 		instance  = this;
+
 		PluginManager pm = getServer().getPluginManager();
 		config = new ConfigurationManager(this);
 
@@ -75,6 +82,14 @@ public class MotdManager extends JavaPlugin{
 		// コマンド登録
 		registerCommands();
 
+		// Building replaces
+		try {
+			buildReplaces();
+		}catch (Exception ex){
+			log.warning("Could not build replace strings! (Check plugin update!)");
+			ex.printStackTrace();
+		}
+
 		// メッセージ表示
 		PluginDescriptionFile pdfFile=this.getDescription();
 		log.info("["+pdfFile.getName()+"] version "+pdfFile.getVersion()+" is enabled!");
@@ -90,6 +105,12 @@ public class MotdManager extends JavaPlugin{
 		// メッセージ表示
 		PluginDescriptionFile pdfFile=this.getDescription();
 		log.info("["+pdfFile.getName()+"] version "+pdfFile.getVersion()+" is disabled!");
+	}
+
+	public void buildReplaces(){
+		// mcVersion
+		final Matcher matcher = Pattern.compile("\\(MC: (.+)\\)").matcher(Bukkit.getVersion());
+		this.mcVersion = (matcher.find()) ? matcher.group(1) : "Unknown";
 	}
 
 	/**

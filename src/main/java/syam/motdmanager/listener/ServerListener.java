@@ -8,12 +8,12 @@ import java.util.List;
 import java.util.Random;
 import java.util.logging.Logger;
 
+import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.server.ServerListPingEvent;
 
-import syam.motdmanager.ConfigurationManager;
 import syam.motdmanager.MotdManager;
 import syam.motdmanager.util.Actions;
 
@@ -38,7 +38,7 @@ public class ServerListener implements Listener{
 	public void onServerListPing(final ServerListPingEvent event){
 		String debugmsg = "Get ping from " + event.getAddress().getHostAddress() + "!";
 
-		final String motd = Actions.coloring(chooseMsg());
+		final String motd = replaces(Actions.coloring(chooseMsg()));
 		if (motd != null) {
 			event.setMotd(motd);
 			debugmsg += " Motd: '" + motd + "'";
@@ -51,9 +51,26 @@ public class ServerListener implements Listener{
 		plugin.debug(debugmsg);
 	}
 
+	/**
+	 * ランダムでMOTDリストから1つ選択する
+	 * @return
+	 */
 	private String chooseMsg(){
 		final List<String> motds = plugin.getConfigs().getMotdList();
 		if (motds.size() == 0) return null;
 		return motds.get(random.nextInt(motds.size()));
+	}
+
+	/**
+	 * 変数の置換を行う
+	 * @param motd
+	 * @return
+	 */
+	private String replaces(final String motd){
+		if (motd == null) return null;
+		return motd
+				.replaceAll("%ver", plugin.mcVersion)
+				.replaceAll("%players", String.valueOf(Bukkit.getOnlinePlayers().length))
+				;
 	}
 }
