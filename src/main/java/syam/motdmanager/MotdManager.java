@@ -26,6 +26,7 @@ import syam.motdmanager.command.MaxplayerCommand;
 import syam.motdmanager.command.ReloadCommand;
 import syam.motdmanager.command.RemoveCommand;
 import syam.motdmanager.listener.ServerListener;
+import syam.motdmanager.util.Actions;
 import syam.motdmanager.util.Metrics;
 
 /**
@@ -48,7 +49,7 @@ public class MotdManager extends JavaPlugin{
 	private ConfigurationManager config;
 
 	// ** Replaces **
-	public String mcVersion = "";
+	private String mcVersion = "";
 
 	// ** Instance **
 	private static MotdManager instance;
@@ -178,6 +179,23 @@ public class MotdManager extends JavaPlugin{
 		if (config.isDebug()){
 			log.info(logPrefix+ "[DEBUG]" + msg);
 		}
+	}
+
+	public String formatting(String string){
+		return replacing(Actions.coloring(string));
+	}
+
+	/**
+	 * 変数の置換を行う
+	 * @param motd
+	 * @return
+	 */
+	private String replacing(final String motd){
+		if (motd == null) return null;
+		return motd
+				.replaceAll("%ver", mcVersion)
+				.replaceAll("%players", String.valueOf(Bukkit.getOnlinePlayers().length))
+				;
 	}
 
 	/* getter */

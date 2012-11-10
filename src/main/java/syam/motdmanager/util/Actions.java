@@ -76,11 +76,6 @@ public class Actions {
 			sender.sendMessage(message.replaceAll("&([0-9a-fk-or])", "\u00A7$1"));
 		}
 	}
-	public static void message(Player player, String message){
-		if (player != null && message != null){
-			player.sendMessage(message.replaceAll("&([0-9a-fk-or])", "\u00A7$1"));
-		}
-	}
 
 	/**
 	 * メッセージをブロードキャスト

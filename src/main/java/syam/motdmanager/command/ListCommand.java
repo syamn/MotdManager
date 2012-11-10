@@ -31,7 +31,7 @@ public class ListCommand extends BaseCommand{
 
 		Actions.message(sender, "&e-- MotdManager : MotdList (" + motds.size() + ") --");
 		for (int i = 0, n = motds.size(); i < n; i++){
-			Actions.message(sender, "&7" + (i + 1) + ". &f" + motds.get(i));
+			Actions.message(sender, "&7" + (i + 1) + ". &f" + plugin.formatting(motds.get(i)));
 		}
 	}
 

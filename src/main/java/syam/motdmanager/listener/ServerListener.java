@@ -38,7 +38,7 @@ public class ServerListener implements Listener{
 	public void onServerListPing(final ServerListPingEvent event){
 		String debugmsg = "Get ping from " + event.getAddress().getHostAddress() + "!";
 
-		final String motd = replaces(Actions.coloring(chooseMsg()));
+		final String motd = plugin.formatting(chooseMsg());
 		if (motd != null) {
 			event.setMotd(motd);
 			debugmsg += " Motd: '" + motd + "'";
@@ -59,18 +59,5 @@ public class ServerListener implements Listener{
 		final List<String> motds = plugin.getConfigs().getMotdList();
 		if (motds.size() == 0) return null;
 		return motds.get(random.nextInt(motds.size()));
-	}
-
-	/**
-	 * 変数の置換を行う
-	 * @param motd
-	 * @return
-	 */
-	private String replaces(final String motd){
-		if (motd == null) return null;
-		return motd
-				.replaceAll("%ver", plugin.mcVersion)
-				.replaceAll("%players", String.valueOf(Bukkit.getOnlinePlayers().length))
-				;
 	}
 }

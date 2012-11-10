@@ -28,7 +28,7 @@ public class AddCommand extends BaseCommand{
 		if (!config.save()){
 			throw new CommandException("&cFailed to save configuration file!");
 		}
-		Actions.message(sender, "&aAdded MOTD: &f" + motd);
+		Actions.message(sender, "&aAdded MOTD: &f" + plugin.formatting(motd));
 	}
 
 	@Override
