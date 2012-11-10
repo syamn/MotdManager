@@ -206,9 +206,12 @@ public class Actions {
 	 */
 	public static String coloring(String string){
 		if (string == null) return null;
-		string = string.replaceAll("&([0-9a-fk-or])", "\u00A7$1");
+		string = string.replaceAll("&([0-9a-fA-Fk-oK-OrR])", "\u00A7$1");
 
-		// k roop
+		// don't touch above replace method. keep backward compatibility.
+		string = string.replaceAll("\u00A7K", "\u00A7k");
+
+		// (\u00A7)k roop
 		while (string.contains("\u00A7k")){
 			// without random
 			int i = string.indexOf("\u00A7k") + 2;
