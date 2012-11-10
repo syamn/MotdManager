@@ -214,7 +214,7 @@ public class Actions {
 			// end if other & is found
 			if (sub.contains("\u00A7")) sub = sub.substring(0, sub.indexOf("\u00A7"));
 			// replace
-			string = string.replaceFirst(sub, coloringRandom(sub));
+			string = string.replace(sub, coloringRandom(sub));
 			string = string.replaceFirst("\u00A7k", "");
 		}
 

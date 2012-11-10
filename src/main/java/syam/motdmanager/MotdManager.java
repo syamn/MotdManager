@@ -182,7 +182,12 @@ public class MotdManager extends JavaPlugin{
 	}
 
 	public String formatting(String string){
-		return replacing(Actions.coloring(string));
+		debug("Formatting..:  " + string);
+		string = replacing(string);
+		debug("Replaced:  " + string);
+		string = Actions.coloring(string);
+		debug("Formatted:  " + string);
+		return string;
 	}
 
 	/**
