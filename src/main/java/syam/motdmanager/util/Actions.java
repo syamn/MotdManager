@@ -9,10 +9,13 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Logger;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
@@ -35,6 +38,27 @@ public class Actions {
 	private static final String msgPrefix = MotdManager.msgPrefix;
 
 	private final MotdManager plugin;
+
+	private static final List<String> colors = new ArrayList<String>(16){
+		private static final long serialVersionUID = -4095100564568189453L;
+	{
+		add("\u00A70");
+		add("\u00A71");
+		add("\u00A72");
+		add("\u00A73");
+		add("\u00A74");
+		add("\u00A75");
+		add("\u00A76");
+		add("\u00A77");
+		add("\u00A78");
+		add("\u00A79");
+		add("\u00A7a");
+		add("\u00A7b");
+		add("\u00A7c");
+		add("\u00A7d");
+		add("\u00A7e");
+		add("\u00A7f");
+	}};
 
 	public Actions(MotdManager plugin){
 		this.plugin = plugin;
@@ -182,7 +206,36 @@ public class Actions {
 	 */
 	public static String coloring(String string){
 		if (string == null) return null;
-		return string.replaceAll("&([0-9a-fA-Fk-oK-OrR])", "\u00A7$1");
+		string = string.replaceAll("&([0-9a-fk-or])", "\u00A7$1");
+
+		// k roop
+		while (string.contains("\u00A7k")){
+			// without random
+			int i = string.indexOf("\u00A7k") + 2;
+			String sub = string.substring(i, string.length());
+			// end if other & is found
+			if (sub.contains("\u00A7")) sub = sub.substring(0, sub.indexOf("\u00A7"));
+			// replace
+			string = string.replaceFirst(sub, coloringRandom(sub));
+			string = string.replaceFirst("\u00A7k", "");
+		}
+
+		return string;
+	}
+	/**
+	 * 引数の文字列をランダムカラーリングして返す
+	 * @param string
+	 * @return
+	 */
+	private static String coloringRandom(String string){
+		if (string == null) return null;
+		String ret = "";
+		for (int i = 0, k = string.length(); i < k; i++){
+			int x = (int)(Math.random() * colors.size());
+			char ch = string.charAt(i);
+			ret += colors.get(x) + Character.toString(ch);
+		}
+		return ret;
 	}
 
 	/****************************************/
