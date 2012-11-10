@@ -23,12 +23,16 @@ public class AddCommand extends BaseCommand{
 
 	@Override
 	public void execute() throws CommandException {
-		final String motd = Util.join(args, " ");
+		String motd = Util.join(args, " ");
 		config.addMotdList(motd);
 		if (!config.save()){
 			throw new CommandException("&cFailed to save configuration file!");
 		}
-		Actions.message(sender, "&aAdded MOTD: &f" + plugin.formatting(motd));
+		motd = plugin.formatting(motd);
+		Actions.message(sender, "&aAdded MOTD: &f" + motd);
+		if (motd.length() > 200){ // 閾値 0～237 文字 超えるとCommunicationError
+			Actions.message(sender, "&4WARN:&c Too long strings! May this cause Communication Error! (length: " + motd.length() + ")");
+		}
 	}
 
 	@Override
