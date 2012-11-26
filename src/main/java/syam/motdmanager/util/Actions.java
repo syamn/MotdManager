@@ -200,7 +200,7 @@ public class Actions {
          */
         public static String coloring(String string){
             if (string == null) return null;
-            string = string.replaceAll("&([0-9a-fA-Fk-oK-OrR])", "\u00A7$1");
+            string = string.replaceAll("&([0-9a-fA-Fk-pK-PrR])", "\u00A7$1");
 
             // don't touch above replace method. keep backward compatibility.
             string = string.replaceAll("\u00A7P", "\u00A7p");
