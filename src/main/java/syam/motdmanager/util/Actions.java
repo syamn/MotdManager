@@ -204,18 +204,18 @@ public class Actions {
 		string = string.replaceAll("&([0-9a-fA-Fk-oK-OrR])", "\u00A7$1");
 
 		// don't touch above replace method. keep backward compatibility.
-		string = string.replaceAll("\u00A7K", "\u00A7k");
+		string = string.replaceAll("\u00A7P", "\u00A7p");
 
-		// (\u00A7)k roop
-		while (string.contains("\u00A7k")){
+		// (\u00A7)p roop
+		while (string.contains("\u00A7p")){
 			// without random
-			int i = string.indexOf("\u00A7k") + 2;
+			int i = string.indexOf("\u00A7p") + 2;
 			String sub = string.substring(i, string.length());
 			// end if other & is found
 			if (sub.contains("\u00A7")) sub = sub.substring(0, sub.indexOf("\u00A7"));
 			// replace
 			string = string.replace(sub, coloringRandom(sub));
-			string = string.replaceFirst("\u00A7k", "");
+			string = string.replaceFirst("\u00A7p", "");
 		}
 
 		return string;
