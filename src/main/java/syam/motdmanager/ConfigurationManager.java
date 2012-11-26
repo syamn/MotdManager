@@ -29,6 +29,9 @@ import syam.motdmanager.util.Util;
  * @author syam(syamn)
  */
 public class ConfigurationManager {
+	/* Current config.yml file version! */
+	private final int latestVersion = 1;
+
 	// Logger
 	private static final Logger log = MotdManager.log;
 	private static final String logPrefix = MotdManager.logPrefix;
@@ -79,8 +82,7 @@ public class ConfigurationManager {
 		plugin.reloadConfig();
 
 		// 先にバージョンチェック
-		double version = plugin.getConfig().getDouble("DontTouchThisConfig", 0.1D);
-		checkver(version);
+		checkver(plugin.getConfig().getInt("ConfigVersion", 1));
 
 		/* Basic Configs */
 		if (plugin.getConfig().get("MotdList") != null){
@@ -179,41 +181,29 @@ public class ConfigurationManager {
 	 * 設定ファイルのバージョンをチェックする
 	 * @param ver
 	 */
-	private void checkver(final double ver){
-		double configVersion = ver;
-		double nowVersion = 0.1D;
+	private void checkver(final int ver){
+        // compare configuration file version
+        if (ver < latestVersion){
+            // first, rename old configuration
+            final String destName = "oldconfig-v" + ver + ".yml";
+            String srcPath = new File(pluginDir, "config.yml").getPath();
+            String destPath = new File(pluginDir, destName).getPath();
+            try{
+                copyTransfer(srcPath, destPath);
+                log.info("Copied old config.yml to "+destName+"!");
+            }catch(Exception ex){
+                log.warning("Failed to copy old config.yml!");
+            }
 
-		String versionString = plugin.getDescription().getVersion();
-		try{
-			// Support maven and Jenkins build number
-			int index = versionString.indexOf("-");
-			if (index > 0){
-				versionString = versionString.substring(0, index);
-			}
-			nowVersion = Double.parseDouble(versionString);
-		}catch (NumberFormatException ex){
-			log.warning(logPrefix+ "Cannot parse version string!");
-		}
+            // force copy config.yml and languages
+            extractResource("/config.yml", pluginDir, true, false);
 
-		// 比較 設定ファイルのバージョンが古ければ config.yml を上書きする
-		if (configVersion < nowVersion){
-			// 先に古い設定ファイルをリネームする
-			String destName = "oldconfig-v"+configVersion+".yml";
-			String srcPath = new File(pluginDir, "config.yml").getPath();
-			String destPath = new File(pluginDir, destName).getPath();
-			try{
-				copyTransfer(srcPath, destPath);
-				log.info(logPrefix+ "Copied old config.yml to "+destName+"!");
-			}catch(Exception ex){
-				log.warning(logPrefix+ "Cannot copy old config.yml!");
-			}
+            plugin.reloadConfig();
+            conf = plugin.getConfig();
 
-			// config.ymlを強制コピー
-			extractResource("/config.yml", pluginDir, true, false);
-
-			log.info(logPrefix+ "Deleted existing configuration file and generate a new one!");
-		}
-	}
+            log.info("Deleted existing configuration file and generate a new one!");
+        }
+    }
 
 	/**
 	 * リソースファイルをファイルに出力する
