@@ -15,28 +15,28 @@ import syam.motdmanager.util.Actions;
  * @author syam(syamn)
  */
 public class ListCommand extends BaseCommand{
-	public ListCommand(){
-		bePlayer = false;
-		name = "list";
-		argLength = 0;
-		usage = "<- see motd list";
-	}
+    public ListCommand(){
+        bePlayer = false;
+        name = "list";
+        argLength = 0;
+        usage = "<- see motd list";
+    }
 
-	@Override
-	public void execute() throws CommandException {
-		final List<String> motds = config.getMotdList();
-		if (motds.size() == 0){
-			throw new CommandException("&cMotd list is empty! Add motd to /" + this.command + " add <motd>");
-		}
+    @Override
+    public void execute() throws CommandException {
+        final List<String> motds = config.getMotdList();
+        if (motds.size() == 0){
+            throw new CommandException("&cMotd list is empty! Add motd to /" + this.command + " add <motd>");
+        }
 
-		Actions.message(sender, "&e-- MotdManager : MotdList (" + motds.size() + ") --");
-		for (int i = 0, n = motds.size(); i < n; i++){
-			Actions.message(sender, "&7" + (i + 1) + ". &f" + plugin.formatting(motds.get(i)));
-		}
-	}
+        Actions.message(sender, "&e-- MotdManager : MotdList (" + motds.size() + ") --");
+        for (int i = 0, n = motds.size(); i < n; i++){
+            Actions.message(sender, "&7" + (i + 1) + ". &f" + plugin.formatting(motds.get(i)));
+        }
+    }
 
-	@Override
-	public boolean permission() {
-		return Perms.LIST.has(sender);
-	}
+    @Override
+    public boolean permission() {
+        return Perms.LIST.has(sender);
+    }
 }

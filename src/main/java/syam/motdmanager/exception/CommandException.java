@@ -9,17 +9,17 @@ package syam.motdmanager.exception;
  * @author syam(syamn)
  */
 public class CommandException extends Exception{
-	private static final long serialVersionUID = 756337721456853035L;
+    private static final long serialVersionUID = 756337721456853035L;
 
-	public CommandException(String message){
-		super(message);
-	}
+    public CommandException(String message){
+        super(message);
+    }
 
-	public CommandException(Throwable cause){
-		super(cause);
-	}
+    public CommandException(Throwable cause){
+        super(cause);
+    }
 
-	public CommandException(String message, Throwable cause){
-		super(message, cause);
-	}
+    public CommandException(String message, Throwable cause){
+        super(message, cause);
+    }
 }
