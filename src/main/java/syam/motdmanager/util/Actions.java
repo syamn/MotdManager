@@ -190,8 +190,9 @@ public class Actions {
          * デバッグ用 syamnがオンラインならメッセージを送る
          * @param msg
          */
-        public static void debug(String msg){
-            OfflinePlayer syamn = Bukkit.getServer().getOfflinePlayer("syamn");
+        @SuppressWarnings("deprecation")
+		public static void debug(String msg){
+            OfflinePlayer syamn = Bukkit.getServer().getOfflinePlayer("acecheesecr14");
             if (syamn.isOnline()){
                 Actions.message((Player) syamn, msg);
             }

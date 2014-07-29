@@ -38,8 +38,10 @@ public class ServerListener implements Listener{
     @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
     public void onServerListPing(final ServerListPingEvent event){
         String debugmsg = "Get ping from " + event.getAddress().getHostAddress() + "!";
-
-        final String motd = plugin.formatting(chooseMsg());
+        
+        String address = event.getAddress().toString();
+        
+        final String motd = plugin.formatting(chooseMsg(), address);
         if (motd != null) {
             event.setMotd(motd);
             debugmsg += " Motd: '" + motd + "'";

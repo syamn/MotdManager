@@ -18,6 +18,8 @@ import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import eu.ac3_servers.dev.motdmanager.PlayerListener;
+import eu.ac3_servers.dev.motdmanager.StorageConfig;
 import syam.motdmanager.command.AddCommand;
 import syam.motdmanager.command.BaseCommand;
 import syam.motdmanager.command.HelpCommand;
@@ -50,6 +52,7 @@ public class MotdManager extends JavaPlugin{
 
     // ** Replaces **
     private String mcVersion = "";
+	private StorageConfig storage;
 
     // ** Instance **
     private static MotdManager instance;
@@ -90,7 +93,12 @@ public class MotdManager extends JavaPlugin{
             log.warning("Could not build replace strings! (Check plugin update!)");
             ex.printStackTrace();
         }
-
+        
+        this.storage = new StorageConfig(this);
+        this.storage.saveDefaultConfig();
+        
+        pm.registerEvents(new PlayerListener(this.storage), this);
+        
         // メッセージ表示
         PluginDescriptionFile pdfFile=this.getDescription();
         log.info("["+pdfFile.getName()+"] version "+pdfFile.getVersion()+" is enabled!");
@@ -105,6 +113,7 @@ public class MotdManager extends JavaPlugin{
     public void onDisable(){
         // メッセージ表示
         PluginDescriptionFile pdfFile=this.getDescription();
+        this.storage.saveConfig();
         log.info("["+pdfFile.getName()+"] version "+pdfFile.getVersion()+" is disabled!");
     }
 
@@ -182,9 +191,9 @@ public class MotdManager extends JavaPlugin{
         }
     }
 
-    public String formatting(String string){
+    public String formatting(String string, String address){
         debug("Formatting..:  " + string);
-        string = replacing(string);
+        string = replacing(string, address);
         debug("Replaced:  " + string);
         string = Actions.coloring(string);
         debug("Formatted:  " + string);
@@ -194,17 +203,25 @@ public class MotdManager extends JavaPlugin{
     /**
      * 変数の置換を行う
      * @param motd
+     * @param address 
      * @return
      */
-    private String replacing(final String motd){
+    private String replacing(final String motd, String address){
         if (motd == null) return null;
         return motd
                 .replaceAll("%ver", mcVersion)
-                .replaceAll("%players", String.valueOf(Bukkit.getOnlinePlayers().length))
+                .replaceAll("%players", String.valueOf(Bukkit.getOnlinePlayers().size()))
+                .replaceAll("%player", getUserFromAddress(address))
                 ;
     }
 
-    /* getter */
+    private String getUserFromAddress(String address) {
+		String username = this.storage.getConfig().getString("ips." + address);
+		if(username == null || address == "127.0.0.1") return "user";
+		return username;
+	}
+
+	/* getter */
     /**
      * コマンドを返す
      * @return List<BaseCommand>

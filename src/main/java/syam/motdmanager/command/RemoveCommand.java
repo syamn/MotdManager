@@ -36,7 +36,7 @@ public class RemoveCommand extends BaseCommand{
             throw new CommandException("&cFailed to save configuration file!");
         }
 
-        Actions.message(sender, "&aRemoved MOTD: &7" + id + ". &f" + plugin.formatting(motd));
+        Actions.message(sender, "&aRemoved MOTD: &7" + id + ". &f" + plugin.formatting(motd, "127.0.0.1.."));
     }
 
     @Override
