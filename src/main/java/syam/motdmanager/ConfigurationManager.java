@@ -35,10 +35,12 @@ public class ConfigurationManager {
     // Logger
     private static final Logger log = MotdManager.log;
     private static final String logPrefix = MotdManager.logPrefix;
-    private static final String msgPrefix = MotdManager.msgPrefix;
+    @SuppressWarnings("unused")
+	private static final String msgPrefix = MotdManager.msgPrefix;
 
     private MotdManager plugin;
-    private FileConfiguration conf;
+    @SuppressWarnings("unused")
+	private FileConfiguration conf;
 
     private static File pluginDir = new File("plugins", "MotdManager");
 
@@ -234,7 +236,8 @@ public class ConfigurationManager {
         InputStream in = null;
         InputStreamReader reader = null;
         OutputStreamWriter writer =null;
-        DataInputStream dis = null;
+        @SuppressWarnings("unused")
+		DataInputStream dis = null;
         try{
             // jar内部のリソースファイルを取得
             URL res = MotdManager.class.getResource(from);
@@ -297,8 +300,10 @@ public class ConfigurationManager {
      * @throws IOException 何らかの入出力処理例外が発生した場合
      */
     public static void copyTransfer(String srcPath, String destPath) throws IOException {
-        FileChannel srcChannel = new FileInputStream(srcPath).getChannel();
-        FileChannel destChannel = new FileOutputStream(destPath).getChannel();
+        @SuppressWarnings("resource")
+		FileChannel srcChannel = new FileInputStream(srcPath).getChannel();
+        @SuppressWarnings("resource")
+		FileChannel destChannel = new FileOutputStream(destPath).getChannel();
         try {
             srcChannel.transferTo(0, srcChannel.size(), destChannel);
         } finally {

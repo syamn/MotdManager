@@ -149,7 +149,8 @@ public class MotdManager extends JavaPlugin{
     /**
      * コマンドが呼ばれた
      */
-    @Override
+    @SuppressWarnings("unused")
+	@Override
     public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String args[]){
         if (cmd.getName().equalsIgnoreCase("motdmanager")){
             if(args.length == 0){

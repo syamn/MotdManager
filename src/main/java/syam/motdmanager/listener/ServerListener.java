@@ -20,9 +20,12 @@ import syam.motdmanager.MotdManager;
  * @author syam(syamn)
  */
 public class ServerListener implements Listener{
-    private static final Logger log = MotdManager.log;
-    private static final String logPrefix = MotdManager.logPrefix;
-    private static final String msgPrefix = MotdManager.msgPrefix;
+    @SuppressWarnings("unused")
+	private static final Logger log = MotdManager.log;
+    @SuppressWarnings("unused")
+	private static final String logPrefix = MotdManager.logPrefix;
+    @SuppressWarnings("unused")
+	private static final String msgPrefix = MotdManager.msgPrefix;
 
     private final MotdManager plugin;
     private final Random random;
