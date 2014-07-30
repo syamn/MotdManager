@@ -220,6 +220,7 @@ public class MotdManager extends JavaPlugin{
 
     private String getUserFromAddress(String address) {
 		String username = this.storage.getConfig().getString("ips." + address);
+		debug(username);
 		if(username == null || address == "127.0.0.1") return "user";
 		return username;
 	}
