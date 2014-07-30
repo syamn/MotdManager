@@ -4,6 +4,7 @@
  */
 package syam.motdmanager;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -95,9 +96,11 @@ public class MotdManager extends JavaPlugin{
         }
         
         this.storage = new StorageConfig(this);
-        this.storage.saveDefaultConfig();
+        if(!(new File(getDataFolder(), "ips.yml")).exists()) 
+        	this.storage.saveDefaultConfig();
         
-        pm.registerEvents(new PlayerListener(this.storage), this);
+        pm.registerEvents(new PlayerListener(this, this.storage), this);
+        log.info("[MOTDManager mod] Player listener registered!");
         
         // メッセージ表示
         PluginDescriptionFile pdfFile=this.getDescription();
