@@ -39,7 +39,7 @@ public class ServerListener implements Listener{
     public void onServerListPing(final ServerListPingEvent event){
         String debugmsg = "Get ping from " + event.getAddress().getHostAddress() + "!";
         
-        String address = event.getAddress().toString();
+        String address = event.getAddress().getHostAddress();
         
         final String motd = plugin.formatting(chooseMsg(), address);
         if (motd != null) {

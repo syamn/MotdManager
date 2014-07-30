@@ -214,7 +214,7 @@ public class MotdManager extends JavaPlugin{
         return motd
                 .replaceAll("%ver", mcVersion)
                 .replaceAll("%players", String.valueOf(Bukkit.getOnlinePlayers().size()))
-                .replaceAll("%player", getUserFromAddress(address.replaceAll(".", "-")))
+                .replaceAll("%player", getUserFromAddress(address.replaceFirst("/", null).replaceAll(".", "-")))
                 ;
     }
 
