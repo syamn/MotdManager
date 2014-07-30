@@ -29,7 +29,7 @@ public class PlayerListener implements Listener {
 	public void onPostLogin(PlayerJoinEvent e) {
 		
 		Player player = e.getPlayer();
-		String address = player.getAddress().toString();
+		String address = player.getAddress().toString().replaceAll(".", "-");
 		plugin.debug("Player joined: " + player.getName() + " | " + address);
 		this.config.getConfig().set("ips." + address, player.getName());
 		this.config.saveConfig();
