@@ -33,10 +33,13 @@ import syam.motdmanager.MotdManager;
 public class Actions {
     // Logger
     private static final Logger log = MotdManager.log;
-    private static final String logPrefix = MotdManager.logPrefix;
-    private static final String msgPrefix = MotdManager.msgPrefix;
+    @SuppressWarnings("unused")
+	private static final String logPrefix = MotdManager.logPrefix;
+    @SuppressWarnings("unused")
+	private static final String msgPrefix = MotdManager.msgPrefix;
 
-    private final MotdManager plugin;
+    @SuppressWarnings("unused")
+	private final MotdManager plugin;
 
     private static final List<String> colors = new ArrayList<String>(16){
         private static final long serialVersionUID = -4095100564568189453L;
@@ -187,8 +190,9 @@ public class Actions {
          * デバッグ用 syamnがオンラインならメッセージを送る
          * @param msg
          */
-        public static void debug(String msg){
-            OfflinePlayer syamn = Bukkit.getServer().getOfflinePlayer("syamn");
+        @SuppressWarnings("deprecation")
+		public static void debug(String msg){
+            OfflinePlayer syamn = Bukkit.getServer().getOfflinePlayer("acecheesecr14");
             if (syamn.isOnline()){
                 Actions.message((Player) syamn, msg);
             }

@@ -28,7 +28,7 @@ public class AddCommand extends BaseCommand{
         if (!config.save()){
             throw new CommandException("&cFailed to save configuration file!");
         }
-        motd = plugin.formatting(motd);
+        motd = plugin.formatting(motd, "127.0.0.1");
         Actions.message(sender, "&aAdded MOTD: &f" + motd);
         if (motd.length() > 200){ // 閾値 0～237 文字 超えるとCommunicationError
             Actions.message(sender, "&4WARN:&c Too long strings! May this cause Communication Error! (length: " + motd.length() + ")");

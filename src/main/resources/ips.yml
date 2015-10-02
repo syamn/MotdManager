@@ -1,0 +1,6 @@
+#####################################
+# IP list for the players.          #
+# Modification by Cory Redmond.     #
+#####################################
+ips:
+    '123.456.78.90': SomeUser

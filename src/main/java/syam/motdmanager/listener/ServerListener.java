@@ -20,9 +20,12 @@ import syam.motdmanager.MotdManager;
  * @author syam(syamn)
  */
 public class ServerListener implements Listener{
-    private static final Logger log = MotdManager.log;
-    private static final String logPrefix = MotdManager.logPrefix;
-    private static final String msgPrefix = MotdManager.msgPrefix;
+    @SuppressWarnings("unused")
+	private static final Logger log = MotdManager.log;
+    @SuppressWarnings("unused")
+	private static final String logPrefix = MotdManager.logPrefix;
+    @SuppressWarnings("unused")
+	private static final String msgPrefix = MotdManager.msgPrefix;
 
     private final MotdManager plugin;
     private final Random random;
@@ -35,8 +38,10 @@ public class ServerListener implements Listener{
     @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
     public void onServerListPing(final ServerListPingEvent event){
         String debugmsg = "Get ping from " + event.getAddress().getHostAddress() + "!";
-
-        final String motd = plugin.formatting(chooseMsg());
+        
+        String address = event.getAddress().getHostAddress();
+        
+        final String motd = plugin.formatting(chooseMsg(), address);
         if (motd != null) {
             event.setMotd(motd);
             debugmsg += " Motd: '" + motd + "'";
